@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-typecheck-test:
+    name: Lint, Typecheck & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Unit tests
+        run: npm test
+        env:
+          CI: true
+
+      - name: Secret scan
+        run: |
+          FOUND=$(git ls-files | xargs grep -l 'SUPABASE_SERVICE_ROLE\|sk_live\|sk_test\|service_role' 2>/dev/null || true)
+          if [ -n "$FOUND" ]; then
+            echo "SECRETS FOUND IN TRACKED FILES: $FOUND"
+            exit 1
+          fi
+          echo "Secret scan passed — no secrets found in tracked files"
