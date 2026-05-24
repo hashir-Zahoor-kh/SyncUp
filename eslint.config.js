@@ -40,6 +40,7 @@ module.exports = defineConfig([
       'jest.config.js',
       'detox.config.js',
       'e2e/jest.config.js',
+      'scripts/**',
     ],
   },
 ]);

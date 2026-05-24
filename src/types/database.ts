@@ -16,17 +16,18 @@ export interface Database {
           id: string;
           display_name: string;
           avatar_color: string;
-          created_at?: string;
-          updated_at?: string;
-          is_pro?: boolean;
+          created_at?: string | undefined;
+          updated_at?: string | undefined;
+          is_pro?: boolean | undefined;
         };
         Update: {
-          id?: string;
-          display_name?: string;
-          avatar_color?: string;
-          updated_at?: string;
-          is_pro?: boolean;
+          id?: string | undefined;
+          display_name?: string | undefined;
+          avatar_color?: string | undefined;
+          updated_at?: string | undefined;
+          is_pro?: boolean | undefined;
         };
+        Relationships: [];
       };
       goals: {
         Row: {
@@ -40,20 +41,21 @@ export interface Database {
           created_at: string;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           user_id: string;
           connection_id: string;
           text: string;
           tag: 'Health' | 'Focus' | 'Life' | 'Custom';
-          completed_at?: string | null;
+          completed_at?: string | null | undefined;
           week_start: string;
-          created_at?: string;
+          created_at?: string | undefined;
         };
         Update: {
-          text?: string;
-          tag?: 'Health' | 'Focus' | 'Life' | 'Custom';
-          completed_at?: string | null;
+          text?: string | undefined;
+          tag?: 'Health' | 'Focus' | 'Life' | 'Custom' | undefined;
+          completed_at?: string | null | undefined;
         };
+        Relationships: [];
       };
       connections: {
         Row: {
@@ -64,15 +66,16 @@ export interface Database {
           created_at: string;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           user_a_id: string;
           user_b_id: string;
           relationship_type: 'Friends' | 'Partners' | 'Family' | 'Workout Buddy';
-          created_at?: string;
+          created_at?: string | undefined;
         };
         Update: {
-          relationship_type?: 'Friends' | 'Partners' | 'Family' | 'Workout Buddy';
+          relationship_type?: 'Friends' | 'Partners' | 'Family' | 'Workout Buddy' | undefined;
         };
+        Relationships: [];
       };
       reactions: {
         Row: {
@@ -83,13 +86,14 @@ export interface Database {
           created_at: string;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           goal_id: string;
           from_user_id: string;
           emoji: string;
-          created_at?: string;
+          created_at?: string | undefined;
         };
         Update: Record<string, never>;
+        Relationships: [];
       };
       invites: {
         Row: {
@@ -102,18 +106,19 @@ export interface Database {
           accepted_by: string | null;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           token: string;
           inviter_user_id: string;
-          created_at?: string;
+          created_at?: string | undefined;
           expires_at: string;
-          accepted?: boolean;
-          accepted_by?: string | null;
+          accepted?: boolean | undefined;
+          accepted_by?: string | null | undefined;
         };
         Update: {
-          accepted?: boolean;
-          accepted_by?: string | null;
+          accepted?: boolean | undefined;
+          accepted_by?: string | null | undefined;
         };
+        Relationships: [];
       };
       push_tokens: {
         Row: {
@@ -124,16 +129,17 @@ export interface Database {
           updated_at: string;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           user_id: string;
           token: string;
-          created_at?: string;
-          updated_at?: string;
+          created_at?: string | undefined;
+          updated_at?: string | undefined;
         };
         Update: {
-          token?: string;
-          updated_at?: string;
+          token?: string | undefined;
+          updated_at?: string | undefined;
         };
+        Relationships: [];
       };
       deletion_requests: {
         Row: {
@@ -143,14 +149,15 @@ export interface Database {
           processed_at: string | null;
         };
         Insert: {
-          id?: string;
+          id?: string | undefined;
           user_id: string;
-          requested_at?: string;
-          processed_at?: string | null;
+          requested_at?: string | undefined;
+          processed_at?: string | null | undefined;
         };
         Update: {
-          processed_at?: string | null;
+          processed_at?: string | null | undefined;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

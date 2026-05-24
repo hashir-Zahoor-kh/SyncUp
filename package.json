@@ -28,6 +28,7 @@
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.9.1",
+    "@types/pg": "^8.20.0",
     "@types/react": "~19.2.2",
     "@typescript-eslint/eslint-plugin": "^8.59.4",
     "@typescript-eslint/parser": "^8.59.4",
@@ -42,6 +43,7 @@
     "jest": "^29.7.0",
     "jest-expo": "^56.0.4",
     "lint-staged": "^17.0.5",
+    "pg": "^8.21.0",
     "prettier": "^3.8.3",
     "typescript": "~6.0.3"
   },
@@ -52,7 +54,7 @@
     "web": "expo start --web",
     "test": "jest --passWithNoTests",
     "test:integration": "jest --config jest.integration.config.js --passWithNoTests",
-    "test:security": "jest --testPathPattern='__tests__/security/' --passWithNoTests",
+    "test:security": "jest --config jest.integration.config.js --testPathPattern='__tests__/security/' --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "typecheck": "tsc --noEmit",
@@ -64,6 +66,7 @@
     "test:e2e:ios:debug": "detox test --configuration ios.sim.debug",
     "test:e2e:ios:release": "detox test --configuration ios.sim.release",
     "build:e2e:ios": "detox build --configuration ios.sim.debug",
+    "migrate": "node scripts/apply-migrations.js",
     "secret-scan": "git ls-files | grep -v 'package.json\\|package-lock.json' | xargs grep -lE 'SUPABASE_SERVICE_ROLE_KEY\\s*=\\s*ey|sk_live_[A-Za-z0-9]|sk_test_[A-Za-z0-9]' 2>/dev/null && echo 'SECRETS FOUND' || echo 'No secrets found in tracked files'"
   },
   "lint-staged": {

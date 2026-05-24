@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   testEnvironment: 'node',
-  testMatch: ['**/__tests__/**/*.integration.test.ts'],
+  testMatch: ['**/__tests__/**/*.integration.test.ts', '**/__tests__/security/**/*.test.ts'],
   transform: {
     '^.+\\.tsx?$': [
       'babel-jest',

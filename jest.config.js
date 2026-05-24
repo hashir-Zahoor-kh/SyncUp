@@ -8,7 +8,12 @@ module.exports = {
     '**/*.test.ts',
     '**/*.test.tsx',
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/e2e/', '.*\\.integration\\.test\\.(ts|tsx)$'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/e2e/',
+    '.*\\.integration\\.test\\.(ts|tsx)$',
+    '/__tests__/security/',
+  ],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.d.ts'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
