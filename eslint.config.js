@@ -26,11 +26,12 @@ module.exports = defineConfig([
       'no-console': 'error',
     },
   },
-  // Data-fetching context files legitimately call setState from useEffect
+  // Data-fetching files legitimately call setState from useEffect
   // (async fetch → set state on result). The React Compiler's
   // set-state-in-effect rule is too strict for this well-established pattern.
+  // Applies to: context providers and screen-level invite flow screens.
   {
-    files: ['src/contexts/**/*.tsx'],
+    files: ['src/contexts/**/*.tsx', 'app/(app)/invite.tsx'],
     rules: {
       'react-hooks/set-state-in-effect': 'off',
     },
@@ -50,6 +51,8 @@ module.exports = defineConfig([
       'detox.config.js',
       'e2e/jest.config.js',
       'scripts/**',
+      'supabase/functions/**',
+      'public/**',
     ],
   },
 ]);

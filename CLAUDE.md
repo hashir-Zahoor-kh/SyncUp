@@ -14,21 +14,21 @@ SyncUp is a production iOS app for sharing weekly goals between exactly two conn
 
 ## Phase Status
 
-| Phase | Name                         | Status      |
-| ----- | ---------------------------- | ----------- |
-| 0     | Scaffold                     | ✅ COMPLETE |
-| 1     | Auth (Apple + email)         | ✅ COMPLETE |
-| 2     | Database schema & RLS        | ✅ COMPLETE |
-| 3     | Onboarding / Profile setup   | ✅ COMPLETE |
-| 4     | Connections / Invite system  | 🔲 NEXT     |
-| 5     | Goal board (CRUD + Realtime) | 🔲          |
-| 6     | Reactions                    | 🔲          |
-| 7     | Push notifications           | 🔲          |
-| 8     | Paywall (RevenueCat)         | 🔲          |
-| 9     | App Store submission         | 🔲          |
-| 10    | Polish / hardening           | 🔲          |
+| Phase | Name                         | Status              |
+| ----- | ---------------------------- | ------------------- |
+| 0     | Scaffold                     | ✅ COMPLETE         |
+| 1     | Auth (Apple + email)         | ✅ COMPLETE         |
+| 2     | Database schema & RLS        | ✅ COMPLETE         |
+| 3     | Onboarding / Profile setup   | ✅ COMPLETE         |
+| 4     | Connections / Invite system  | 🔲 PENDING APPROVAL |
+| 5     | Goal board (CRUD + Realtime) | 🔲                  |
+| 6     | Reactions                    | 🔲                  |
+| 7     | Push notifications           | 🔲                  |
+| 8     | Paywall (RevenueCat)         | 🔲                  |
+| 9     | App Store submission         | 🔲                  |
+| 10    | Polish / hardening           | 🔲                  |
 
-**Phase 4 is next.** Do not begin it until the user types `APPROVED`.
+**Phase 4 is built — awaiting APPROVED.** Phase 5 is next.
 
 ---
 

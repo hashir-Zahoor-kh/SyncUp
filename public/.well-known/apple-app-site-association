@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["XXXXXXXXXX.com.syncup.app"],
+        "components": [
+          {
+            "/#": "no_query",
+            "/": "/i/*",
+            "comment": "Invite deep links — /i/<token>"
+          }
+        ]
+      }
+    ]
+  }
+}

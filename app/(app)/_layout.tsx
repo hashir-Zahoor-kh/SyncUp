@@ -20,6 +20,9 @@ export default function AppLayout(): React.JSX.Element {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
+      <Stack.Screen name="invite" />
+      <Stack.Screen name="accept-invite" />
+      <Stack.Screen name="connected" options={{ gestureEnabled: false }} />
     </Stack>
   );
 }

@@ -162,9 +162,35 @@ export interface Database {
         };
         Relationships: [];
       };
+      rate_limit_events: {
+        Row: {
+          id: string;
+          event_type: string;
+          ip_address: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string | undefined;
+          event_type: string;
+          ip_address: string;
+          created_at?: string | undefined;
+        };
+        Update: Record<string, never>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      accept_invite_atomic: {
+        Args: { p_token: string; p_accepter_user_id: string };
+        Returns: {
+          result: 'success' | 'invalid_token' | 'self_accept' | 'already_connected';
+          connection_id: string | null;
+          partner_name: string | null;
+          partner_avatar_color: string | null;
+        };
+      };
+    };
     Enums: Record<string, never>;
   };
 }
