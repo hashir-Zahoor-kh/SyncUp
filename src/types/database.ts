@@ -8,24 +8,27 @@ export interface Database {
           id: string;
           display_name: string;
           avatar_color: string;
+          is_pro: boolean;
+          onboarded_at: string | null;
           created_at: string;
           updated_at: string;
-          is_pro: boolean;
         };
         Insert: {
           id: string;
           display_name: string;
           avatar_color: string;
+          is_pro?: boolean | undefined;
+          onboarded_at?: string | null | undefined;
           created_at?: string | undefined;
           updated_at?: string | undefined;
-          is_pro?: boolean | undefined;
         };
         Update: {
           id?: string | undefined;
           display_name?: string | undefined;
           avatar_color?: string | undefined;
-          updated_at?: string | undefined;
           is_pro?: boolean | undefined;
+          onboarded_at?: string | null | undefined;
+          updated_at?: string | undefined;
         };
         Relationships: [];
       };

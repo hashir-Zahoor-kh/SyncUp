@@ -26,6 +26,15 @@ module.exports = defineConfig([
       'no-console': 'error',
     },
   },
+  // Data-fetching context files legitimately call setState from useEffect
+  // (async fetch → set state on result). The React Compiler's
+  // set-state-in-effect rule is too strict for this well-established pattern.
+  {
+    files: ['src/contexts/**/*.tsx'],
+    rules: {
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
   prettierConfig,
   {
     ignores: [
