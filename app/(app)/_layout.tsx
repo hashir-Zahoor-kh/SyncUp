@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Tabs, useRouter } from 'expo-router';
+import Feather from '@expo/vector-icons/Feather';
+import Svg, { Circle } from 'react-native-svg';
 import { useAuth } from '../../src/contexts/AuthContext';
 import { useProfile } from '../../src/contexts/ProfileContext';
 import { GoalProvider } from '../../src/contexts/GoalContext';
 
-function TabIcon({ emoji, focused }: { emoji: string; focused: boolean }): React.JSX.Element {
+function BoardIcon({ focused }: { focused: boolean }): React.JSX.Element {
+  const color = focused ? '#D85A30' : '#888780';
   return (
-    <View style={styles.tabIcon}>
-      <Text style={[styles.tabEmoji, focused && styles.tabEmojiActive]}>{emoji}</Text>
-    </View>
+    <Svg width={28} height={16} viewBox="0 0 28 16">
+      <Circle cx={8} cy={8} r={6} stroke={color} strokeWidth={1.5} fill="none" />
+      <Circle cx={20} cy={8} r={6} stroke={color} strokeWidth={1.5} fill={color} />
+    </Svg>
   );
 }
 
@@ -34,7 +38,7 @@ export default function AppLayout(): React.JSX.Element {
           headerShown: false,
           tabBarStyle: styles.tabBar,
           tabBarActiveTintColor: '#D85A30',
-          tabBarInactiveTintColor: '#888',
+          tabBarInactiveTintColor: '#888780',
           tabBarLabelStyle: styles.tabLabel,
         }}
       >
@@ -42,21 +46,25 @@ export default function AppLayout(): React.JSX.Element {
           name="index"
           options={{
             title: 'Board',
-            tabBarIcon: ({ focused }) => <TabIcon emoji="📋" focused={focused} />,
+            tabBarIcon: ({ focused }) => <BoardIcon focused={focused} />,
           }}
         />
         <Tabs.Screen
           name="activity"
           options={{
             title: 'Activity',
-            tabBarIcon: ({ focused }) => <TabIcon emoji="⚡" focused={focused} />,
+            tabBarIcon: ({ focused }) => (
+              <Feather name="bell" size={22} color={focused ? '#D85A30' : '#888780'} />
+            ),
           }}
         />
         <Tabs.Screen
           name="profile"
           options={{
             title: 'Profile',
-            tabBarIcon: ({ focused }) => <TabIcon emoji="👤" focused={focused} />,
+            tabBarIcon: ({ focused }) => (
+              <Feather name="user" size={22} color={focused ? '#D85A30' : '#888780'} />
+            ),
           }}
         />
         {/* Modal screens — hidden from tab bar */}
@@ -82,7 +90,4 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans_400Regular',
     marginTop: 2,
   },
-  tabIcon: { alignItems: 'center', justifyContent: 'center' },
-  tabEmoji: { fontSize: 22, opacity: 0.6 },
-  tabEmojiActive: { opacity: 1 },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from '../lib/supabase';
 
@@ -17,7 +17,6 @@ const EMOJIS = [
   '🌈',
   '🦋',
   '🐉',
-  '🎭',
   '🏆',
   '💎',
   '🌙',
@@ -29,11 +28,10 @@ const EMOJIS = [
   '🦊',
   '🐬',
   '🌺',
-  '🎪',
   '🎸',
   '🏄',
-  '🧘',
-  '🤸',
+  '🌿',
+  '⚽',
 ] as const;
 
 const SUPABASE_STORAGE_PREFIX =
@@ -148,34 +146,33 @@ export function AvatarPicker({
       </View>
 
       {activeTab === 'emoji' ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={styles.emojiScroll}
+        <FlatList
+          data={EMOJIS}
+          numColumns={7}
+          scrollEnabled={false}
+          keyExtractor={(item) => item}
+          columnWrapperStyle={styles.emojiRow}
+          renderItem={({ item: emoji }) => {
+            const isSelected = selectedEmoji === emoji;
+            return (
+              <TouchableOpacity
+                style={[styles.emojiCell, isSelected && styles.emojiCellSelected]}
+                onPress={() => onEmojiSelect(emoji)}
+                accessibilityRole="radio"
+                accessibilityState={{ checked: isSelected }}
+                accessibilityLabel={`Select emoji ${emoji}`}
+              >
+                <Text style={styles.emojiText}>{emoji}</Text>
+                {isSelected && (
+                  <View style={styles.checkmark} testID={`checkmark-${emoji}`}>
+                    <Text style={styles.checkmarkText}>✓</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            );
+          }}
           testID="emoji-grid"
-        >
-          <View style={styles.emojiGrid}>
-            {EMOJIS.map((emoji) => {
-              const isSelected = selectedEmoji === emoji;
-              return (
-                <TouchableOpacity
-                  key={emoji}
-                  style={[styles.emojiCell, isSelected && styles.emojiCellSelected]}
-                  onPress={() => onEmojiSelect(emoji)}
-                  accessibilityRole="radio"
-                  accessibilityState={{ checked: isSelected }}
-                  accessibilityLabel={`Select emoji ${emoji}`}
-                >
-                  <Text style={styles.emojiText}>{emoji}</Text>
-                  {isSelected && (
-                    <View style={styles.checkmark} testID={`checkmark-${emoji}`}>
-                      <Text style={styles.checkmarkText}>✓</Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        </ScrollView>
+        />
       ) : (
         <View style={styles.photoTab} testID="photo-tab">
           {selectedUrl ? (
@@ -183,7 +180,9 @@ export function AvatarPicker({
           ) : (
             <View style={styles.uploadArea}>
               <Text style={styles.uploadIcon}>📷</Text>
-              <Text style={styles.uploadHint}>No photo selected</Text>
+              <Text style={styles.uploadHint} numberOfLines={2}>
+                No photo selected
+              </Text>
             </View>
           )}
           <TouchableOpacity
@@ -228,16 +227,13 @@ const styles = StyleSheet.create({
   tabActive: { backgroundColor: '#FBF7F2' },
   tabText: { fontSize: 14, color: '#888', fontFamily: 'DMSans_400Regular' },
   tabTextActive: { color: '#2C2C2A', fontFamily: 'DMSans_700Bold' },
-  emojiScroll: { maxHeight: 220 },
-  emojiGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    justifyContent: 'flex-start',
+  emojiRow: {
+    gap: 6,
+    marginBottom: 6,
   },
   emojiCell: {
-    width: 52,
-    height: 52,
+    flex: 1,
+    aspectRatio: 1,
     borderRadius: 12,
     backgroundColor: '#F5F0EA',
     alignItems: 'center',
@@ -270,10 +266,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0EBE3',
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
     marginBottom: 8,
   },
-  uploadIcon: { fontSize: 36 },
-  uploadHint: { fontSize: 12, color: '#888', fontFamily: 'DMSans_400Regular', marginTop: 4 },
+  uploadIcon: { fontSize: 32 },
+  uploadHint: {
+    fontSize: 11,
+    color: '#888',
+    fontFamily: 'DMSans_400Regular',
+    marginTop: 4,
+    maxWidth: 80,
+    textAlign: 'center',
+  },
   photoPreview: {
     width: 100,
     height: 100,

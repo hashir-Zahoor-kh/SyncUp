@@ -349,3 +349,16 @@ Phase 5 is the **Goal Board** — the core screen users see every day.
 - Security: User C (not in A–B connection) cannot read goals from that connection
 - Security: User C cannot insert a goal into the A–B connection
 - E2E note: two simulators side by side showing real-time sync is the Phase 5 preview deliverable
+
+---
+
+## Git Configuration
+
+Every commit in this repository must be authored under Hashir's identity. Before making any commit, always run:
+
+```
+git config user.name "Hashir Zahoor"
+git config user.email "hashirzahoorurrahm@mail.adelphi.edu"
+```
+
+Never commit under Claude's name or any other identity. If you are about to commit and have not set these config values in this session, set them first. This applies to every single commit throughout the entire project without exception.

@@ -51,6 +51,7 @@ module.exports = defineConfig([
       'detox.config.js',
       'e2e/jest.config.js',
       'scripts/**',
+      'jest.integration.globalsetup.js',
       'supabase/functions/**',
       'public/**',
     ],
