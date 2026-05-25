@@ -16,11 +16,12 @@ export function PrimaryButton({
   title,
   loading = false,
   disabled,
+  style,
   ...props
 }: PrimaryButtonProps): React.JSX.Element {
   return (
     <TouchableOpacity
-      style={[styles.btn, (disabled ?? loading) ? styles.btnDisabled : null]}
+      style={[styles.btn, (disabled ?? loading) ? styles.btnDisabled : null, style]}
       disabled={disabled ?? loading}
       accessibilityRole="button"
       accessibilityLabel={title}

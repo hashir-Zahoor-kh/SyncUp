@@ -157,23 +157,23 @@ export default function SignUpScreen(): React.JSX.Element {
               <PasswordRequirement met={/[a-zA-Z]/.test(password)} text="At least one letter" />
               <PasswordRequirement met={/[0-9]/.test(password)} text="At least one number" />
             </View>
+          </View>
 
-            <PrimaryButton
-              title="Create Account"
-              loading={loading}
-              onPress={() => void handleSubmit(onSubmit)()}
-              style={styles.submitBtn}
-            />
+          <PrimaryButton
+            title="Create Account"
+            loading={loading}
+            onPress={() => void handleSubmit(onSubmit)()}
+            style={styles.submitBtn}
+          />
 
-            <View style={styles.footer}>
-              <Text style={styles.footerText}>Already have an account? </Text>
-              <TouchableOpacity
-                onPress={() => router.push('/(auth)/sign-in')}
-                accessibilityLabel="Sign in"
-              >
-                <Text style={styles.footerLink}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Already have an account? </Text>
+            <TouchableOpacity
+              onPress={() => router.push('/(auth)/sign-in')}
+              accessibilityLabel="Sign in"
+            >
+              <Text style={styles.footerLink}>Sign In</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     fontFamily: 'DMSans_700Bold',
   },
-  submitBtn: { marginTop: 4 },
+  submitBtn: { marginTop: 24 },
   footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 20 },
   footerText: { fontSize: 14, color: '#666', fontFamily: 'DMSans_400Regular' },
   footerLink: { fontSize: 14, color: '#D85A30', fontWeight: '700', fontFamily: 'DMSans_700Bold' },
