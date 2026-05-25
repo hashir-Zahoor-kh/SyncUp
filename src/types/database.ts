@@ -7,7 +7,9 @@ export interface Database {
         Row: {
           id: string;
           display_name: string;
-          avatar_color: string;
+          avatar_color: string | null;
+          avatar_emoji: string | null;
+          avatar_url: string | null;
           is_pro: boolean;
           onboarded_at: string | null;
           created_at: string;
@@ -16,7 +18,9 @@ export interface Database {
         Insert: {
           id: string;
           display_name: string;
-          avatar_color: string;
+          avatar_color?: string | null | undefined;
+          avatar_emoji?: string | null | undefined;
+          avatar_url?: string | null | undefined;
           is_pro?: boolean | undefined;
           onboarded_at?: string | null | undefined;
           created_at?: string | undefined;
@@ -25,7 +29,9 @@ export interface Database {
         Update: {
           id?: string | undefined;
           display_name?: string | undefined;
-          avatar_color?: string | undefined;
+          avatar_color?: string | null | undefined;
+          avatar_emoji?: string | null | undefined;
+          avatar_url?: string | null | undefined;
           is_pro?: boolean | undefined;
           onboarded_at?: string | null | undefined;
           updated_at?: string | undefined;

@@ -56,7 +56,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }): Re
       const { error } = await supabase.from('profiles').upsert({
         id: user.id,
         display_name: data.displayName,
-        avatar_color: data.avatarColor,
+        avatar_color: data.avatarColor ?? null,
+        avatar_emoji: data.avatarEmoji ?? null,
+        avatar_url: data.avatarUrl ?? null,
         updated_at: now,
         onboarded_at: now,
       });

@@ -4,26 +4,35 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AvatarColorPicker } from '../../src/components/AvatarColorPicker';
+import { AvatarPicker } from '../../src/components/AvatarPicker';
 import { FormInput } from '../../src/components/FormInput';
 import { PrimaryButton } from '../../src/components/PrimaryButton';
+import { useAuth } from '../../src/contexts/AuthContext';
 import { useProfile } from '../../src/contexts/ProfileContext';
-import { AVATAR_COLORS, profileSchema, type ProfileFormData } from '../../src/schemas/profile';
+import { profileSchema, type ProfileFormData } from '../../src/schemas/profile';
 
 export default function OnboardingSetupScreen(): React.JSX.Element {
   const router = useRouter();
+  const { user } = useAuth();
   const { updateProfile } = useProfile();
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
+  const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
+  const hasAvatar = selectedEmoji != null || selectedUrl != null;
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
       displayName: '',
-      avatarColor: AVATAR_COLORS[0],
+      avatarColor: null,
+      avatarEmoji: null,
+      avatarUrl: null,
     },
   });
 
@@ -52,7 +61,7 @@ export default function OnboardingSetupScreen(): React.JSX.Element {
             <Text style={styles.logo}>SyncUp</Text>
             <Text style={styles.title}>Set up your profile</Text>
             <Text style={styles.subtitle}>
-              Your partner will see this name and color on the goal board.
+              Your partner will see your name and avatar on the goal board.
             </Text>
           </View>
 
@@ -76,16 +85,28 @@ export default function OnboardingSetupScreen(): React.JSX.Element {
               )}
             />
 
-            <Text style={styles.colorLabel}>Pick your color</Text>
-            <Controller
-              control={control}
-              name="avatarColor"
-              render={({ field: { onChange, value } }) => (
-                <AvatarColorPicker value={value} onChange={onChange} />
-              )}
+            <Text style={styles.avatarLabel}>Choose your avatar</Text>
+            <AvatarPicker
+              userId={user?.id ?? ''}
+              selectedEmoji={selectedEmoji}
+              selectedUrl={selectedUrl}
+              onEmojiSelect={(emoji) => {
+                setSelectedEmoji(emoji);
+                setSelectedUrl(null);
+                setValue('avatarEmoji', emoji);
+                setValue('avatarUrl', null);
+                setValue('avatarColor', null);
+              }}
+              onUrlSelect={(url) => {
+                setSelectedUrl(url);
+                setSelectedEmoji(null);
+                setValue('avatarUrl', url);
+                setValue('avatarEmoji', null);
+                setValue('avatarColor', null);
+              }}
             />
-            {errors.avatarColor ? (
-              <Text style={styles.fieldError}>{errors.avatarColor.message}</Text>
+            {errors.avatarEmoji ? (
+              <Text style={styles.fieldError}>{errors.avatarEmoji.message}</Text>
             ) : null}
 
             {submitError ? <Text style={styles.submitError}>{submitError}</Text> : null}
@@ -95,6 +116,7 @@ export default function OnboardingSetupScreen(): React.JSX.Element {
                 title="Get Started"
                 onPress={() => void handleSubmit(onSubmit)()}
                 loading={isSubmitting}
+                disabled={!hasAvatar}
               />
             </View>
           </View>
@@ -125,7 +147,7 @@ const styles = StyleSheet.create({
   },
   subtitle: { fontSize: 15, color: '#666', lineHeight: 22, fontFamily: 'DMSans_400Regular' },
   form: { flex: 1 },
-  colorLabel: {
+  avatarLabel: {
     fontSize: 14,
     fontWeight: '600',
     color: '#2C2C2A',

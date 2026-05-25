@@ -1,6 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   testEnvironment: 'node',
+  globalSetup: './jest.integration.globalsetup.js',
   testMatch: ['**/__tests__/**/*.integration.test.ts', '**/__tests__/security/**/*.test.ts'],
   transform: {
     '^.+\\.tsx?$': [

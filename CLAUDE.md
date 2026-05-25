@@ -270,6 +270,19 @@ Two separate Jest configs — **do not mix them**:
 ### Phase 4 — Edge Functions & Testing
 
 - `rate_limit_events` accumulates rows during test runs. If integration tests start returning 429 unexpectedly, run `DELETE FROM public.rate_limit_events;` in the Supabase SQL Editor.
+
+### Phase 5 — Realtime WebSocket tests (known Jest limitation)
+
+`@supabase/realtime-js` v2 requires `globalThis.WebSocket` at module-load time. Jest's `vm.createContext()` sandbox does not inherit Node.js v22+ native WebSocket, so Realtime subscriptions cannot connect inside Jest. Tests 4, 5, and 8 in `__tests__/goals/goal.integration.test.ts` are **permanently skipped** for this reason.
+
+To verify Realtime end-to-end, run the standalone script (confirmed working — INSERT delivered <1s in diagnostic):
+
+```bash
+npx ts-node scripts/verify-realtime.ts
+```
+
+The script requires `.env` with all three Supabase credentials and creates/cleans up its own ephemeral test users. The `goals` table has `REPLICA IDENTITY FULL` and Realtime publication enabled; both are required for RLS-filtered `postgres_changes` subscriptions to deliver events.
+
 - Edge Function tests require the functions to be deployed — they are skipped gracefully if the function URL returns a non-JSON response.
 - Both Edge Functions are self-contained (no `_shared/` imports) because the Supabase dashboard editor requires single-file functions.
 - The AASA file at `public/.well-known/apple-app-site-association` has a placeholder Team ID (`XXXXXXXXXX`) — replace with real Team ID in Phase 9.

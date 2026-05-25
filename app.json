@@ -11,7 +11,11 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.syncup.app",
       "usesAppleSignIn": true,
-      "associatedDomains": ["applinks:trysyncup.org"]
+      "associatedDomains": ["applinks:trysyncup.org"],
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "SyncUp uses your photo library so you can set a profile photo.",
+        "NSCameraUsageDescription": "SyncUp uses your camera so you can take a profile photo."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -31,7 +35,8 @@
       "expo-secure-store",
       "expo-apple-authentication",
       "expo-font",
-      "expo-splash-screen"
+      "expo-splash-screen",
+      "expo-image-picker"
     ],
     "experiments": {
       "typedRoutes": true

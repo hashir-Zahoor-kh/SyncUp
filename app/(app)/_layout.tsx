@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react';
-import { Stack, useRouter } from 'expo-router';
+import { StyleSheet, Text, View } from 'react-native';
+import { Tabs, useRouter } from 'expo-router';
 import { useAuth } from '../../src/contexts/AuthContext';
 import { useProfile } from '../../src/contexts/ProfileContext';
+import { GoalProvider } from '../../src/contexts/GoalContext';
+
+function TabIcon({ emoji, focused }: { emoji: string; focused: boolean }): React.JSX.Element {
+  return (
+    <View style={styles.tabIcon}>
+      <Text style={[styles.tabEmoji, focused && styles.tabEmojiActive]}>{emoji}</Text>
+    </View>
+  );
+}
 
 export default function AppLayout(): React.JSX.Element {
   const { session, loading } = useAuth();
@@ -18,11 +28,61 @@ export default function AppLayout(): React.JSX.Element {
   }, [session, loading, isOnboarded, profileLoading, router]);
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="invite" />
-      <Stack.Screen name="accept-invite" />
-      <Stack.Screen name="connected" options={{ gestureEnabled: false }} />
-    </Stack>
+    <GoalProvider>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: styles.tabBar,
+          tabBarActiveTintColor: '#D85A30',
+          tabBarInactiveTintColor: '#888',
+          tabBarLabelStyle: styles.tabLabel,
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Board',
+            tabBarIcon: ({ focused }) => <TabIcon emoji="📋" focused={focused} />,
+          }}
+        />
+        <Tabs.Screen
+          name="activity"
+          options={{
+            title: 'Activity',
+            tabBarIcon: ({ focused }) => <TabIcon emoji="⚡" focused={focused} />,
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: 'Profile',
+            tabBarIcon: ({ focused }) => <TabIcon emoji="👤" focused={focused} />,
+          }}
+        />
+        {/* Modal screens — hidden from tab bar */}
+        <Tabs.Screen name="invite" options={{ href: null }} />
+        <Tabs.Screen name="accept-invite" options={{ href: null }} />
+        <Tabs.Screen name="connected" options={{ href: null }} />
+      </Tabs>
+    </GoalProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#FBF7F2',
+    borderTopColor: '#E8E0D8',
+    borderTopWidth: 0.5,
+    height: 84,
+    paddingBottom: 20,
+    paddingTop: 8,
+  },
+  tabLabel: {
+    fontSize: 11,
+    fontFamily: 'DMSans_400Regular',
+    marginTop: 2,
+  },
+  tabIcon: { alignItems: 'center', justifyContent: 'center' },
+  tabEmoji: { fontSize: 22, opacity: 0.6 },
+  tabEmojiActive: { opacity: 1 },
+});
