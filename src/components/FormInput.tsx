@@ -52,7 +52,13 @@ export function FormInput({
 
 const styles = StyleSheet.create({
   container: { marginBottom: 16 },
-  label: { fontSize: 14, fontWeight: '600', color: '#333', marginBottom: 6 },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#2C2C2A',
+    marginBottom: 6,
+    fontFamily: 'DMSans_700Bold',
+  },
   inputRow: { flexDirection: 'row', alignItems: 'center' },
   input: {
     flex: 1,
@@ -62,8 +68,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
-    color: '#111',
+    color: '#2C2C2A',
     backgroundColor: '#FFF',
+    fontFamily: 'DMSans_400Regular',
   },
   inputError: { borderColor: '#FF6B6B' },
   inputPadded: { paddingRight: 72 },
@@ -73,6 +80,6 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
   },
-  eyeText: { fontSize: 13, color: '#6C63FF', fontWeight: '600' },
-  error: { marginTop: 4, fontSize: 12, color: '#FF6B6B' },
+  eyeText: { fontSize: 13, color: '#D85A30', fontWeight: '600', fontFamily: 'DMSans_700Bold' },
+  error: { marginTop: 4, fontSize: 12, color: '#FF6B6B', fontFamily: 'DMSans_400Regular' },
 });

@@ -65,7 +65,7 @@ export default function InviteScreen(): React.JSX.Element {
 
         {invite.status === 'loading' && (
           <View style={styles.statusBox}>
-            <ActivityIndicator color="#6C63FF" />
+            <ActivityIndicator color="#D85A30" />
             <Text style={styles.statusText}>Generating your invite link…</Text>
           </View>
         )}
@@ -93,9 +93,9 @@ export default function InviteScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
+  container: { flex: 1, backgroundColor: '#FBF7F2' },
   header: { paddingHorizontal: 24, paddingTop: 8 },
-  back: { fontSize: 16, color: '#6C63FF', fontWeight: '600' },
+  back: { fontSize: 16, color: '#D85A30', fontWeight: '600', fontFamily: 'DMSans_700Bold' },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -104,13 +104,15 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#FFF',
-    borderRadius: 24,
+    borderRadius: 14,
     padding: 32,
     alignItems: 'center',
     width: '100%',
+    borderWidth: 0.5,
+    borderColor: '#E8E0D8',
     shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 20,
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
     marginBottom: 32,
@@ -123,34 +125,53 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 16,
   },
-  avatarInitial: { fontSize: 34, fontWeight: '700', color: '#FFF' },
-  name: { fontSize: 22, fontWeight: '700', color: '#1A1A2E', marginBottom: 8 },
+  avatarInitial: { fontSize: 34, fontWeight: '700', color: '#FFF', fontFamily: 'DMSans_700Bold' },
+  name: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#2C2C2A',
+    marginBottom: 8,
+    fontFamily: 'Fraunces_700Bold',
+  },
   tagline: {
     fontSize: 15,
     color: '#666',
     textAlign: 'center',
     marginBottom: 16,
     lineHeight: 22,
+    fontFamily: 'DMSans_400Regular',
   },
-  appName: { fontSize: 13, color: '#6C63FF', fontWeight: '600', letterSpacing: 1 },
+  appName: {
+    fontSize: 13,
+    color: '#D85A30',
+    fontWeight: '600',
+    letterSpacing: 1,
+    fontFamily: 'Fraunces_700Bold',
+  },
   statusBox: { alignItems: 'center', gap: 12 },
-  statusText: { fontSize: 14, color: '#999' },
-  errorText: { fontSize: 15, color: '#E55353', textAlign: 'center', marginBottom: 12 },
+  statusText: { fontSize: 14, color: '#999', fontFamily: 'DMSans_400Regular' },
+  errorText: {
+    fontSize: 15,
+    color: '#E55353',
+    textAlign: 'center',
+    marginBottom: 12,
+    fontFamily: 'DMSans_400Regular',
+  },
   retryBtn: {
-    backgroundColor: '#F0EEFF',
+    backgroundColor: '#FBEEE8',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 24,
   },
-  retryBtnText: { color: '#6C63FF', fontWeight: '600', fontSize: 15 },
+  retryBtnText: { color: '#D85A30', fontWeight: '600', fontSize: 15, fontFamily: 'DMSans_700Bold' },
   actionsBox: { alignItems: 'center', width: '100%', gap: 12 },
-  expiry: { fontSize: 13, color: '#999' },
+  expiry: { fontSize: 13, color: '#999', fontFamily: 'DMSans_400Regular' },
   shareBtn: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#D85A30',
     borderRadius: 14,
     paddingVertical: 16,
     width: '100%',
     alignItems: 'center',
   },
-  shareBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16 },
+  shareBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16, fontFamily: 'DMSans_700Bold' },
 });

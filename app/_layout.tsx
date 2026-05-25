@@ -3,10 +3,16 @@ import { Linking } from 'react-native';
 import { Slot, useRouter } from 'expo-router';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as SplashScreen from 'expo-splash-screen';
+import { useFonts } from 'expo-font';
+import { Fraunces_700Bold } from '@expo-google-fonts/fraunces';
+import { DMSans_400Regular, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
 import * as SecureStore from 'expo-secure-store';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
 import { ProfileProvider, useProfile } from '../src/contexts/ProfileContext';
 import { extractInviteToken } from '../src/lib/invite-link';
+
+void SplashScreen.preventAutoHideAsync();
 
 /**
  * Handles deep links that arrive while the app is already running.
@@ -55,7 +61,15 @@ function DeepLinkHandler(): null {
   return null;
 }
 
-export default function RootLayout(): React.JSX.Element {
+export default function RootLayout(): React.JSX.Element | null {
+  const [fontsLoaded] = useFonts({ Fraunces_700Bold, DMSans_400Regular, DMSans_700Bold });
+
+  useEffect(() => {
+    if (fontsLoaded) void SplashScreen.hideAsync();
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

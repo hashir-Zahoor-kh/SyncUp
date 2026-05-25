@@ -22,8 +22,8 @@ function getStrength(password: string): StrengthResult {
 
   if (score <= 1) return { score, label: 'Weak', color: '#FF6B6B' };
   if (score <= 2) return { score, label: 'Fair', color: '#FFB347' };
-  if (score <= 3) return { score, label: 'Good', color: '#43BF8E' };
-  return { score, label: 'Strong', color: '#6C63FF' };
+  if (score <= 3) return { score, label: 'Good', color: '#1D9E75' };
+  return { score, label: 'Strong', color: '#1D9E75' };
 }
 
 export function PasswordStrengthMeter({ password }: Props): React.JSX.Element | null {

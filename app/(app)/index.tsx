@@ -35,7 +35,7 @@ export default function BoardScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
+  container: { flex: 1, backgroundColor: '#FBF7F2' },
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
   avatar: {
     width: 72,
@@ -45,17 +45,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 16,
   },
-  avatarInitial: { fontSize: 30, fontWeight: '700', color: '#FFF' },
-  title: { fontSize: 36, fontWeight: '700', color: '#6C63FF', marginBottom: 8 },
-  subtitle: { fontSize: 18, color: '#333', marginBottom: 24 },
-  placeholder: { fontSize: 15, color: '#666', textAlign: 'center', marginBottom: 32 },
+  avatarInitial: { fontSize: 30, fontWeight: '700', color: '#FFF', fontFamily: 'DMSans_700Bold' },
+  title: {
+    fontSize: 36,
+    fontWeight: '700',
+    color: '#2C2C2A',
+    marginBottom: 8,
+    fontFamily: 'Fraunces_700Bold',
+  },
+  subtitle: { fontSize: 18, color: '#2C2C2A', marginBottom: 24, fontFamily: 'DMSans_400Regular' },
+  placeholder: {
+    fontSize: 15,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 32,
+    fontFamily: 'DMSans_400Regular',
+  },
   inviteBtn: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#D85A30',
     borderRadius: 14,
     paddingVertical: 16,
     paddingHorizontal: 48,
   },
-  inviteBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16 },
-  signOutBtn: { margin: 24, padding: 16, backgroundColor: '#F0EEFF', borderRadius: 12 },
-  signOutText: { textAlign: 'center', color: '#6C63FF', fontWeight: '600', fontSize: 15 },
+  inviteBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16, fontFamily: 'DMSans_700Bold' },
+  signOutBtn: { margin: 24, padding: 16, backgroundColor: '#FBEEE8', borderRadius: 12 },
+  signOutText: {
+    textAlign: 'center',
+    color: '#D85A30',
+    fontWeight: '600',
+    fontSize: 15,
+    fontFamily: 'DMSans_700Bold',
+  },
 });

@@ -33,12 +33,12 @@ export function PrimaryButton({
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#D85A30',
     borderRadius: 14,
     paddingVertical: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
   btnDisabled: { opacity: 0.6 },
-  text: { color: '#FFF', fontSize: 16, fontWeight: '700' },
+  text: { color: '#FFF', fontSize: 16, fontWeight: '700', fontFamily: 'DMSans_700Bold' },
 });

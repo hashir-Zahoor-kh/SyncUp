@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   selected: {
     borderWidth: 3,
-    borderColor: '#1A1A2E',
+    borderColor: '#2C2C2A',
     transform: [{ scale: 1.15 }],
   },
 });

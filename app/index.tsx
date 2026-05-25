@@ -56,7 +56,7 @@ export default function RootIndex(): React.JSX.Element {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <ActivityIndicator size="large" color="#6C63FF" />
+      <ActivityIndicator size="large" color="#D85A30" />
     </View>
   );
 }

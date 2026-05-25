@@ -49,7 +49,7 @@ export default function ConnectedScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
+  container: { flex: 1, backgroundColor: '#FBF7F2' },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -69,26 +69,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 3,
-    borderColor: '#FAFAFA',
+    borderColor: '#FBF7F2',
   },
-  avatarInitial: { fontSize: 32, fontWeight: '700', color: '#FFF' },
+  avatarInitial: { fontSize: 32, fontWeight: '700', color: '#FFF', fontFamily: 'DMSans_700Bold' },
   connector: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#F0EEFF',
+    backgroundColor: '#FBEEE8',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1,
     marginHorizontal: -8,
   },
-  connectorText: { fontSize: 18, fontWeight: '700', color: '#6C63FF' },
+  connectorText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#D85A30',
+    fontFamily: 'DMSans_700Bold',
+  },
   heading: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#1A1A2E',
+    color: '#2C2C2A',
     textAlign: 'center',
     marginBottom: 12,
+    fontFamily: 'Fraunces_700Bold',
   },
   body: {
     fontSize: 16,
@@ -96,13 +102,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 24,
     marginBottom: 40,
+    fontFamily: 'DMSans_400Regular',
   },
   ctaBtn: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#D85A30',
     borderRadius: 14,
     paddingVertical: 16,
     width: '100%',
     alignItems: 'center',
   },
-  ctaBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16 },
+  ctaBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16, fontFamily: 'DMSans_700Bold' },
 });

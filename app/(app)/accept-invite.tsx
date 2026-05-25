@@ -113,7 +113,7 @@ export default function AcceptInviteScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAFAFA' },
+  container: { flex: 1, backgroundColor: '#FBF7F2' },
   content: {
     flex: 1,
     alignItems: 'center',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#F0EEFF',
+    backgroundColor: '#FBEEE8',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -133,9 +133,10 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     fontWeight: '700',
-    color: '#1A1A2E',
+    color: '#2C2C2A',
     textAlign: 'center',
     marginBottom: 12,
+    fontFamily: 'Fraunces_700Bold',
   },
   body: {
     fontSize: 15,
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 22,
     marginBottom: 32,
+    fontFamily: 'DMSans_400Regular',
   },
   errorBox: {
     backgroundColor: '#FFF0F0',
@@ -151,9 +153,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '100%',
   },
-  errorText: { color: '#E55353', fontSize: 14, textAlign: 'center' },
+  errorText: {
+    color: '#E55353',
+    fontSize: 14,
+    textAlign: 'center',
+    fontFamily: 'DMSans_400Regular',
+  },
   acceptBtn: {
-    backgroundColor: '#6C63FF',
+    backgroundColor: '#D85A30',
     borderRadius: 14,
     paddingVertical: 16,
     width: '100%',
@@ -161,7 +168,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   acceptBtnDisabled: { opacity: 0.6 },
-  acceptBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16 },
+  acceptBtnText: { color: '#FFF', fontWeight: '700', fontSize: 16, fontFamily: 'DMSans_700Bold' },
   cancelBtn: { paddingVertical: 12 },
-  cancelBtnText: { color: '#999', fontSize: 15 },
+  cancelBtnText: { color: '#999', fontSize: 15, fontFamily: 'DMSans_400Regular' },
 });
