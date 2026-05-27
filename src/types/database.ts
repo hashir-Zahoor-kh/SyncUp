@@ -173,12 +173,14 @@ export interface Database {
           id: string;
           event_type: string;
           ip_address: string;
+          user_id: string | null;
           created_at: string;
         };
         Insert: {
           id?: string | undefined;
           event_type: string;
           ip_address: string;
+          user_id?: string | null | undefined;
           created_at?: string | undefined;
         };
         Update: Record<string, never>;

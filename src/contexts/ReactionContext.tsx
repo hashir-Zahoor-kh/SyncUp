@@ -72,14 +72,12 @@ export function ReactionProvider({ children }: { children: React.ReactNode }): R
     async (goalId: string, emoji: ReactionEmoji): Promise<void> => {
       if (!user) return;
 
-      // Exclude optimistic rows when finding an existing DB reaction to replace
       const existing = reactions.find(
         (r) =>
           r.goal_id === goalId && r.from_user_id === user.id && !r.id.startsWith('optimistic-'),
       );
       const optimisticId = `optimistic-${Date.now()}`;
 
-      // Optimistic: swap any existing reaction for the new emoji immediately
       setReactions((prev) => [
         ...prev.filter((r) => !(r.goal_id === goalId && r.from_user_id === user.id)),
         {
@@ -91,30 +89,45 @@ export function ReactionProvider({ children }: { children: React.ReactNode }): R
         },
       ]);
 
-      // No UPDATE policy on reactions — delete then insert to replace
-      if (existing) {
-        await supabase.from('reactions').delete().eq('id', existing.id).eq('from_user_id', user.id);
-      }
-
-      const { data: inserted, error } = await supabase
-        .from('reactions')
-        .insert({ goal_id: goalId, from_user_id: user.id, emoji })
-        .select()
-        .single();
-
-      if (error) {
+      const rollback = (): void => {
         setReactions((prev) => {
           const filtered = prev.filter((r) => r.id !== optimisticId);
           return existing ? [...filtered, existing] : filtered;
         });
+      };
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        rollback();
         return;
       }
 
-      if (inserted) {
-        setReactions((prev) =>
-          prev.map((r) => (r.id === optimisticId ? (inserted as ReactionRow) : r)),
-        );
+      const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
+      let res: Response;
+      try {
+        res = await fetch(`${supabaseUrl}/functions/v1/add-reaction`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({ goal_id: goalId, emoji }),
+        });
+      } catch {
+        rollback();
+        return;
       }
+
+      if (!res.ok) {
+        rollback();
+        return;
+      }
+
+      const inserted = (await res.json()) as ReactionRow;
+      setReactions((prev) => prev.map((r) => (r.id === optimisticId ? inserted : r)));
     },
     [user, reactions],
   );

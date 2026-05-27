@@ -189,29 +189,48 @@ export function GoalProvider({ children }: { children: React.ReactNode }): React
 
       setGoals((prev) => [...prev, optimisticGoal]);
 
-      const { data: inserted, error } = await supabase
-        .from('goals')
-        .insert({
-          user_id: user.id,
-          connection_id: connectionRef.current.id,
-          text: parsed.data.text,
-          tag: parsed.data.tag,
-          week_start: weekStart,
-        })
-        .select()
-        .single();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      if (error) {
+      if (!session) {
+        setGoals((prev) => prev.filter((g) => g.id !== optimisticGoal.id));
+        return { error: 'Not authenticated' };
+      }
+
+      const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
+      let res: Response;
+      try {
+        res = await fetch(`${supabaseUrl}/functions/v1/create-goal`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({
+            text: parsed.data.text,
+            tag: parsed.data.tag,
+            connection_id: connectionRef.current.id,
+            week_start: weekStart,
+          }),
+        });
+      } catch {
         setGoals((prev) => prev.filter((g) => g.id !== optimisticGoal.id));
         return { error: 'Failed to add goal. Please try again.' };
       }
 
-      // Replace optimistic with real row
-      if (inserted) {
-        setGoals((prev) =>
-          prev.map((g) => (g.id === optimisticGoal.id ? (inserted as GoalRow) : g)),
-        );
+      if (res.status === 429) {
+        setGoals((prev) => prev.filter((g) => g.id !== optimisticGoal.id));
+        return { error: "You're adding goals too quickly. Try again in a few minutes." };
       }
+
+      if (!res.ok) {
+        setGoals((prev) => prev.filter((g) => g.id !== optimisticGoal.id));
+        return { error: 'Failed to add goal. Please try again.' };
+      }
+
+      const inserted = (await res.json()) as GoalRow;
+      setGoals((prev) => prev.map((g) => (g.id === optimisticGoal.id ? inserted : g)));
 
       return { error: null };
     },
