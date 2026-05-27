@@ -17,6 +17,8 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import { useAuth } from '../../src/contexts/AuthContext';
 import { useProfile } from '../../src/contexts/ProfileContext';
 import { useGoals } from '../../src/contexts/GoalContext';
+import { useReactions } from '../../src/contexts/ReactionContext';
+import { usePushNotifications } from '../../src/hooks/usePushNotifications';
 import { Avatar } from '../../src/components/Avatar';
 import { GoalCard } from '../../src/components/GoalCard';
 import { ProgressRing } from '../../src/components/ProgressRing';
@@ -53,6 +55,8 @@ export default function BoardScreen(): React.JSX.Element {
     refresh,
     realtimeStatus,
   } = useGoals();
+  const { addReaction, removeReaction, getReactionsForGoal, getMyReaction } = useReactions();
+  const { requestAndRegister } = usePushNotifications();
   const router = useRouter();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -83,6 +87,7 @@ export default function BoardScreen(): React.JSX.Element {
   const handleAddGoal = async (): Promise<void> => {
     setAddError(null);
     setSubmitting(true);
+    const isFirstGoal = goals.length === 0;
     const { error } = await addGoal({ text: goalText.trim(), tag: selectedTag });
     setSubmitting(false);
     if (error) {
@@ -90,6 +95,10 @@ export default function BoardScreen(): React.JSX.Element {
       return;
     }
     closeSheet();
+    // Request notification permission after the first goal is added (better acceptance rate)
+    if (isFirstGoal) {
+      void requestAndRegister();
+    }
   };
 
   const statusDotColor =
@@ -218,7 +227,17 @@ export default function BoardScreen(): React.JSX.Element {
                   </Text>
                 </View>
               ) : (
-                partnerGoals.map((g) => <GoalCard key={g.id} goal={g} isOwn={false} />)
+                partnerGoals.map((g) => (
+                  <GoalCard
+                    key={g.id}
+                    goal={g}
+                    isOwn={false}
+                    goalReactions={getReactionsForGoal(g.id)}
+                    myReaction={getMyReaction(g.id)}
+                    onAddReaction={addReaction}
+                    onRemoveReaction={removeReaction}
+                  />
+                ))
               )}
             </View>
           </>

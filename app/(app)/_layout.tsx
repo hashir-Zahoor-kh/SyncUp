@@ -6,6 +6,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { useAuth } from '../../src/contexts/AuthContext';
 import { useProfile } from '../../src/contexts/ProfileContext';
 import { GoalProvider } from '../../src/contexts/GoalContext';
+import { ReactionProvider } from '../../src/contexts/ReactionContext';
 
 function BoardIcon({ focused }: { focused: boolean }): React.JSX.Element {
   const color = focused ? '#D85A30' : '#888780';
@@ -33,45 +34,47 @@ export default function AppLayout(): React.JSX.Element {
 
   return (
     <GoalProvider>
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: '#D85A30',
-          tabBarInactiveTintColor: '#888780',
-          tabBarLabelStyle: styles.tabLabel,
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Board',
-            tabBarIcon: ({ focused }) => <BoardIcon focused={focused} />,
+      <ReactionProvider>
+        <Tabs
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: styles.tabBar,
+            tabBarActiveTintColor: '#D85A30',
+            tabBarInactiveTintColor: '#888780',
+            tabBarLabelStyle: styles.tabLabel,
           }}
-        />
-        <Tabs.Screen
-          name="activity"
-          options={{
-            title: 'Activity',
-            tabBarIcon: ({ focused }) => (
-              <Feather name="bell" size={22} color={focused ? '#D85A30' : '#888780'} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({ focused }) => (
-              <Feather name="user" size={22} color={focused ? '#D85A30' : '#888780'} />
-            ),
-          }}
-        />
-        {/* Modal screens — hidden from tab bar */}
-        <Tabs.Screen name="invite" options={{ href: null }} />
-        <Tabs.Screen name="accept-invite" options={{ href: null }} />
-        <Tabs.Screen name="connected" options={{ href: null }} />
-      </Tabs>
+        >
+          <Tabs.Screen
+            name="index"
+            options={{
+              title: 'Board',
+              tabBarIcon: ({ focused }) => <BoardIcon focused={focused} />,
+            }}
+          />
+          <Tabs.Screen
+            name="activity"
+            options={{
+              title: 'Activity',
+              tabBarIcon: ({ focused }) => (
+                <Feather name="bell" size={22} color={focused ? '#D85A30' : '#888780'} />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="profile"
+            options={{
+              title: 'Profile',
+              tabBarIcon: ({ focused }) => (
+                <Feather name="user" size={22} color={focused ? '#D85A30' : '#888780'} />
+              ),
+            }}
+          />
+          {/* Modal screens — hidden from tab bar */}
+          <Tabs.Screen name="invite" options={{ href: null }} />
+          <Tabs.Screen name="accept-invite" options={{ href: null }} />
+          <Tabs.Screen name="connected" options={{ href: null }} />
+        </Tabs>
+      </ReactionProvider>
     </GoalProvider>
   );
 }

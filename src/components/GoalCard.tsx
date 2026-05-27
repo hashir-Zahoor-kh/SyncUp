@@ -2,8 +2,11 @@ import React from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import type { Database } from '../types/database';
+import { ReactionStrip } from './ReactionStrip';
+import type { ReactionEmoji } from '../schemas/reaction';
 
 type GoalRow = Database['public']['Tables']['goals']['Row'];
+type ReactionRow = Database['public']['Tables']['reactions']['Row'];
 type GoalTag = GoalRow['tag'];
 
 const TAG_COLORS: Record<GoalTag, { bg: string; text: string }> = {
@@ -18,9 +21,22 @@ interface GoalCardProps {
   isOwn: boolean;
   onComplete?: ((goalId: string) => Promise<void>) | undefined;
   onDelete?: ((goalId: string) => Promise<void>) | undefined;
+  goalReactions?: ReactionRow[] | undefined;
+  myReaction?: ReactionRow | undefined;
+  onAddReaction?: ((goalId: string, emoji: ReactionEmoji) => Promise<void>) | undefined;
+  onRemoveReaction?: ((goalId: string) => Promise<void>) | undefined;
 }
 
-export function GoalCard({ goal, isOwn, onComplete, onDelete }: GoalCardProps): React.JSX.Element {
+export function GoalCard({
+  goal,
+  isOwn,
+  onComplete,
+  onDelete,
+  goalReactions,
+  myReaction,
+  onAddReaction,
+  onRemoveReaction,
+}: GoalCardProps): React.JSX.Element {
   const isCompleted = goal.completed_at != null;
   const tagStyle = TAG_COLORS[goal.tag];
 
@@ -43,44 +59,59 @@ export function GoalCard({ goal, isOwn, onComplete, onDelete }: GoalCardProps): 
   };
 
   return (
-    <TouchableOpacity
-      style={[styles.card, isCompleted && styles.cardCompleted]}
-      onPress={() => void handlePress()}
-      onLongPress={isOwn ? handleLongPress : undefined}
-      activeOpacity={isOwn ? 0.7 : 1}
-      accessibilityRole="checkbox"
-      accessibilityState={{ checked: isCompleted }}
-      accessibilityLabel={`${goal.text}, ${isCompleted ? 'completed' : 'not completed'}`}
-    >
-      <View style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}>
-        {isCompleted && <Text style={styles.checkmark}>✓</Text>}
-      </View>
+    <View style={[styles.card, isCompleted && styles.cardCompleted]}>
+      <TouchableOpacity
+        style={styles.goalRow}
+        onPress={() => void handlePress()}
+        onLongPress={isOwn ? handleLongPress : undefined}
+        activeOpacity={isOwn ? 0.7 : 1}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: isCompleted }}
+        accessibilityLabel={`${goal.text}, ${isCompleted ? 'completed' : 'not completed'}`}
+      >
+        <View style={[styles.checkbox, isCompleted && styles.checkboxCompleted]}>
+          {isCompleted && <Text style={styles.checkmark}>✓</Text>}
+        </View>
 
-      <Text style={[styles.text, isCompleted && styles.textCompleted]} numberOfLines={2}>
-        {goal.text}
-      </Text>
+        <Text style={[styles.text, isCompleted && styles.textCompleted]} numberOfLines={2}>
+          {goal.text}
+        </Text>
 
-      <View style={[styles.tag, { backgroundColor: tagStyle.bg }]}>
-        <Text style={[styles.tagText, { color: tagStyle.text }]}>{goal.tag}</Text>
-      </View>
-    </TouchableOpacity>
+        <View style={[styles.tag, { backgroundColor: tagStyle.bg }]}>
+          <Text style={[styles.tagText, { color: tagStyle.text }]}>{goal.tag}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {!isOwn && onAddReaction !== undefined && onRemoveReaction !== undefined && (
+        <ReactionStrip
+          goalId={goal.id}
+          goalReactions={goalReactions ?? []}
+          myReaction={myReaction}
+          onAddReaction={onAddReaction}
+          onRemoveReaction={onRemoveReaction}
+        />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    alignItems: 'center',
     backgroundColor: '#FFF',
     borderRadius: 14,
     borderWidth: 0.5,
     borderColor: '#E8E0D8',
+    marginBottom: 8,
+    overflow: 'hidden',
+  },
+  cardCompleted: { backgroundColor: '#F0FAF5' },
+  goalRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 14,
     paddingVertical: 12,
     gap: 10,
-    marginBottom: 8,
   },
-  cardCompleted: { backgroundColor: '#F0FAF5' },
   checkbox: {
     width: 22,
     height: 22,

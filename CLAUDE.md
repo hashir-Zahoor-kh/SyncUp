@@ -21,14 +21,14 @@ SyncUp is a production iOS app for sharing weekly goals between exactly two conn
 | 2     | Database schema & RLS        | ✅ COMPLETE |
 | 3     | Onboarding / Profile setup   | ✅ COMPLETE |
 | 4     | Connections / Invite system  | ✅ COMPLETE |
-| 5     | Goal board (CRUD + Realtime) | 🔲 NEXT     |
-| 6     | Reactions                    | 🔲          |
+| 5     | Goal board (CRUD + Realtime) | ✅ COMPLETE |
+| 6     | Reactions                    | 🔲 NEXT     |
 | 7     | Push notifications           | 🔲          |
 | 8     | Paywall (RevenueCat)         | 🔲          |
 | 9     | App Store submission         | 🔲          |
 | 10    | Polish / hardening           | 🔲          |
 
-**Phase 4 is complete. Phase 5 is next.**
+**Phase 5 is complete. Phase 6 is next.**
 
 ---
 
