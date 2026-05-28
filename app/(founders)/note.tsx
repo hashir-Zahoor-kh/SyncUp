@@ -58,9 +58,13 @@ export default function FoundersNote(): React.JSX.Element {
 
             <View style={styles.gap24} />
 
+            <Text style={styles.body}>{'I made this for someone who lives far away.'}</Text>
+
+            <View style={styles.gap24} />
+
             <Text style={styles.body}>
               {
-                'I built SyncUp because I kept losing touch with the people I actually care about — not because I stopped caring, but because life got loud.'
+                'Honestly, I just wanted a way to stay close to her that didn’t feel like an obligation. Not texts you have to respond to. Not check-ins that feel like homework. Something quieter.'
               }
             </Text>
 
@@ -68,13 +72,9 @@ export default function FoundersNote(): React.JSX.Element {
 
             <Text style={styles.body}>
               {
-                'This app is my attempt to make staying close feel simple again. No feeds, no likes, no noise. Just you, one person who matters, and three goals a week.'
+                'SyncUp is what I came up with. I hope it works for you the way I hope it works for me.'
               }
             </Text>
-
-            <View style={styles.gap24} />
-
-            <Text style={styles.body}>{'I hope it does something real for you.'}</Text>
 
             <View style={styles.gap24} />
 
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderColor: '#C4A882',
     borderRadius: 24,
     paddingVertical: 12,
-    paddingHorizontal: 40,
+    paddingHorizontal: 48,
     backgroundColor: 'transparent',
   },
   continueText: {

@@ -19,10 +19,18 @@ export function FoundersPeony(): React.JSX.Element {
         fill="none"
         strokeLinecap="round"
       />
-
-      {/* Leaf 1 — left of main stem */}
+      {/* Branch from main stem to leaf 3 */}
       <Path
-        d="M 96 124 C 65 110 52 132 74 142 C 84 137 92 130 96 124 Z"
+        d="M 106 142 C 122 139 138 138 152 138"
+        stroke="#6B8F5E"
+        strokeWidth={2}
+        fill="none"
+        strokeLinecap="round"
+      />
+
+      {/* Leaf 1 — left of main stem, base on stem at (103,124) */}
+      <Path
+        d="M 103 124 C 72 110 59 132 81 142 C 91 137 99 130 103 124 Z"
         fill="#B8D4A8"
         fillOpacity={0.5}
         stroke="#6B8F5E"
@@ -30,11 +38,11 @@ export function FoundersPeony(): React.JSX.Element {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <Path d="M 96 124 C 80 128 70 135 74 142" stroke="#6B8F5E" strokeWidth={0.9} fill="none" />
+      <Path d="M 103 124 C 87 128 77 135 81 142" stroke="#6B8F5E" strokeWidth={0.9} fill="none" />
 
-      {/* Leaf 2 — right of bud */}
+      {/* Leaf 2 — right of bud stem, base on stem at (219,150) */}
       <Path
-        d="M 218 150 C 250 136 267 158 248 168 C 237 161 227 155 218 150 Z"
+        d="M 219 150 C 251 136 268 158 249 168 C 238 161 228 155 219 150 Z"
         fill="#B8D4A8"
         fillOpacity={0.5}
         stroke="#6B8F5E"
@@ -43,13 +51,13 @@ export function FoundersPeony(): React.JSX.Element {
         strokeLinejoin="round"
       />
       <Path
-        d="M 218 150 C 234 154 246 160 248 168"
+        d="M 219 150 C 235 154 247 160 249 168"
         stroke="#6B8F5E"
         strokeWidth={0.9}
         fill="none"
       />
 
-      {/* Leaf 3 — small, between bloom and bud */}
+      {/* Leaf 3 — base at end of branch from main stem at (152,138) */}
       <Path
         d="M 152 138 C 168 124 182 130 174 146 C 164 146 157 143 152 138 Z"
         fill="#B8D4A8"
