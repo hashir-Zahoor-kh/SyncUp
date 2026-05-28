@@ -15,6 +15,12 @@ export default function RootIndex(): React.JSX.Element {
     const go = async (): Promise<void> => {
       if (loading) return;
 
+      const noteSeen = await SecureStore.getItemAsync('founders_note_seen');
+      if (!noteSeen) {
+        router.replace('/(founders)/note');
+        return;
+      }
+
       if (!session?.user.email_confirmed_at) {
         router.replace('/(auth)/sign-in');
         return;

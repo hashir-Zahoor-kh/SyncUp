@@ -7,6 +7,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Fraunces_700Bold } from '@expo-google-fonts/fraunces';
 import { DMSans_400Regular, DMSans_700Bold } from '@expo-google-fonts/dm-sans';
+import { Caveat_400Regular, Caveat_700Bold } from '@expo-google-fonts/caveat';
 import * as SecureStore from 'expo-secure-store';
 import { AuthProvider, useAuth } from '../src/contexts/AuthContext';
 import { ProfileProvider, useProfile } from '../src/contexts/ProfileContext';
@@ -62,7 +63,13 @@ function DeepLinkHandler(): null {
 }
 
 export default function RootLayout(): React.JSX.Element | null {
-  const [fontsLoaded] = useFonts({ Fraunces_700Bold, DMSans_400Regular, DMSans_700Bold });
+  const [fontsLoaded] = useFonts({
+    Fraunces_700Bold,
+    DMSans_400Regular,
+    DMSans_700Bold,
+    Caveat_400Regular,
+    Caveat_700Bold,
+  });
 
   useEffect(() => {
     if (fontsLoaded) void SplashScreen.hideAsync();
