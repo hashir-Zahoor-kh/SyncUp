@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     paddingVertical: 12,
     paddingHorizontal: 48,
+    minWidth: 160,
     backgroundColor: 'transparent',
   },
   continueText: {

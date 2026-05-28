@@ -13,21 +13,12 @@ export function FoundersPeony(): React.JSX.Element {
         strokeLinecap="round"
       />
       <Path
-        d="M 218 128 C 226 148 213 164 217 180"
+        d="M 168 128 C 176 148 163 164 167 180"
         stroke="#6B8F5E"
         strokeWidth={2}
         fill="none"
         strokeLinecap="round"
       />
-      {/* Branch from main stem to leaf 3 */}
-      <Path
-        d="M 106 142 C 122 139 138 138 152 138"
-        stroke="#6B8F5E"
-        strokeWidth={2}
-        fill="none"
-        strokeLinecap="round"
-      />
-
       {/* Leaf 1 — left of main stem, base on stem at (103,124) */}
       <Path
         d="M 103 124 C 72 110 59 132 81 142 C 91 137 99 130 103 124 Z"
@@ -40,9 +31,9 @@ export function FoundersPeony(): React.JSX.Element {
       />
       <Path d="M 103 124 C 87 128 77 135 81 142" stroke="#6B8F5E" strokeWidth={0.9} fill="none" />
 
-      {/* Leaf 2 — right of bud stem, base on stem at (219,150) */}
+      {/* Leaf 2 — right of bud stem, half-sized, base on stem at (219,150) */}
       <Path
-        d="M 219 150 C 251 136 268 158 249 168 C 238 161 228 155 219 150 Z"
+        d="M 169 150 C 185 143 194 154 184 159 C 179 156 174 153 169 150 Z"
         fill="#B8D4A8"
         fillOpacity={0.5}
         stroke="#6B8F5E"
@@ -51,24 +42,7 @@ export function FoundersPeony(): React.JSX.Element {
         strokeLinejoin="round"
       />
       <Path
-        d="M 219 150 C 235 154 247 160 249 168"
-        stroke="#6B8F5E"
-        strokeWidth={0.9}
-        fill="none"
-      />
-
-      {/* Leaf 3 — base at end of branch from main stem at (152,138) */}
-      <Path
-        d="M 152 138 C 168 124 182 130 174 146 C 164 146 157 143 152 138 Z"
-        fill="#B8D4A8"
-        fillOpacity={0.5}
-        stroke="#6B8F5E"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M 152 138 C 162 137 170 141 174 146"
+        d="M 169 150 C 177 152 183 155 184 159"
         stroke="#6B8F5E"
         strokeWidth={0.9}
         fill="none"
@@ -109,11 +83,11 @@ export function FoundersPeony(): React.JSX.Element {
       <Circle cx={104} cy={83} r={2.5} fill="#C47A8A" />
       <Circle cx={100} cy={73} r={2} fill="#C47A8A" />
 
-      {/* Bud outer petals — center (220, 110), 4 petals */}
+      {/* Bud outer petals — center (170, 110), 4 petals */}
       {([0, 90, 180, 270] as const).map((angle, i) => (
-        <G key={`bp-${i}`} transform={`rotate(${angle}, 220, 110)`}>
+        <G key={`bp-${i}`} transform={`rotate(${angle}, 170, 110)`}>
           <Path
-            d="M 220 110 C 213 106 211 95 218 89 C 220 86 223 86 226 90 C 231 97 229 108 220 110 Z"
+            d="M 170 110 C 163 106 161 95 168 89 C 170 86 173 86 176 90 C 181 97 179 108 170 110 Z"
             fill="#F2C4CE"
             fillOpacity={0.6}
             stroke="#D4849A"
@@ -124,9 +98,9 @@ export function FoundersPeony(): React.JSX.Element {
 
       {/* Bud inner petals — 3 */}
       {([45, 165, 285] as const).map((angle, i) => (
-        <G key={`bi-${i}`} transform={`rotate(${angle}, 220, 110)`}>
+        <G key={`bi-${i}`} transform={`rotate(${angle}, 170, 110)`}>
           <Path
-            d="M 220 110 C 215 107 214 99 218 94 C 220 92 222 92 224 95 C 228 101 226 109 220 110 Z"
+            d="M 170 110 C 165 107 164 99 168 94 C 170 92 172 92 174 95 C 178 101 176 109 170 110 Z"
             fill="#E8A4B0"
             fillOpacity={0.8}
             stroke="#D4849A"
