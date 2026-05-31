@@ -12,6 +12,12 @@
       "bundleIdentifier": "com.syncup.app",
       "usesAppleSignIn": true,
       "associatedDomains": ["applinks:trysyncup.org"],
+      "privacyManifests": {
+        "NSPrivacyTracking": false,
+        "NSPrivacyTrackingDomains": [],
+        "NSPrivacyCollectedDataTypes": [],
+        "NSPrivacyAccessedAPITypes": []
+      },
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "SyncUp uses your photo library so you can set a profile photo.",
         "NSCameraUsageDescription": "SyncUp uses your camera so you can take a profile photo."

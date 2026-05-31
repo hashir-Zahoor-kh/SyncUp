@@ -6,24 +6,24 @@
 
 ## Phase Status
 
-| Phase | Name                             | Status  |
-| ----- | -------------------------------- | ------- |
-| 0     | Scaffold                         | ✅      |
-| 1     | Auth (Apple + email)             | ✅      |
-| 2     | Database schema & RLS            | ✅      |
-| 3     | Onboarding / Profile setup       | ✅      |
-| 4     | Connections / Invite system      | ✅      |
-| 5     | Goal board (CRUD + Realtime)     | ✅      |
-| 6     | Reactions + Push + Rate limiting | ✅      |
-| 7     | Paywall (RevenueCat)             | 🔲 NEXT |
-| 8     | App Store submission             | 🔲      |
-| 9     | Polish / hardening               | 🔲      |
+| Phase | Name                              | Status                            |
+| ----- | --------------------------------- | --------------------------------- |
+| 0     | Scaffold                          | ✅                                |
+| 1     | Auth (Apple + email)              | ✅                                |
+| 2     | Database schema & RLS             | ✅                                |
+| 3     | Onboarding / Profile setup        | ✅                                |
+| 4     | Connections / Invite system       | ✅                                |
+| 5     | Goal board (CRUD + Realtime)      | ✅                                |
+| 6     | Reactions + Push + Rate limiting  | ✅                                |
+| 7     | Paywall (RevenueCat)              | ⏭ SKIPPED (OPT, no monetization) |
+| 8     | Account Deletion, Legal & Privacy | ✅                                |
+| 9     | TestFlight & App Store submission | 🔲 NEXT                           |
+| 10    | Polish / hardening                | 🔲                                |
 
 ## Blockers
 
-- **RevenueCat account** → blocks Phase 7
-- **Apple Developer Program account** → blocks Phase 8
-- **App icon (1024×1024 PNG)** → blocks Phase 8
+- **Apple Developer Program account** → blocks Phase 9 (TestFlight/App Store submission)
+- **App icon (1024×1024 PNG)** → blocks Phase 9
 
 ## Stack
 
@@ -83,8 +83,8 @@ npm run secret-scan        # Check tracked files for leaked secrets
 
 ## Tests
 
-- Unit: 64 passing (`npm test`)
-- Integration: ~57 passing, 3 skipped (`npm run test:integration`)
+- Unit: 71 passing (`npm test`)
+- Integration: ~57 passing + 7 new deletion tests, 3 skipped (`npm run test:integration`)
 - See `docs/testing.md` for full details and known limitations
 
 ## Security Rules (NON-NEGOTIABLE)
@@ -114,16 +114,21 @@ git config user.email "hashirzahoorurrahm@mail.adelphi.edu"
 - Realtime WebSocket tests permanently skipped in Jest — see `docs/gotchas.md`
 - Direct DB connection IP-restricted — use SQL Editor for migrations
 
-## What Phase 7 Must Build
+## Phase 7 — SKIPPED
 
-RevenueCat paywall:
+RevenueCat/paywall skipped — builder is on OPT and cannot monetize. App is fully free.
+`is_pro` column kept in DB (always false). No paywall logic in UI.
 
-- Install `react-native-purchases` + configure RevenueCat project
-- `is_pro` field on `profiles` table gates premium features
-- Paywall sheet: free vs. pro tiers, subscription options
-- `ProfileContext` exposes `isPro` derived from `profile.is_pro`
-- Webhook: RevenueCat → Supabase Edge Function to update `is_pro` on subscription events
-- Requires RevenueCat account (currently a blocker)
+## What Phase 9 Must Build
+
+TestFlight & App Store submission:
+
+- Apple Developer Program account required
+- App icon (1024×1024 PNG) required
+- Expo EAS Build configuration
+- TestFlight internal testing
+- App Store Connect metadata, screenshots, description
+- Privacy Policy and TOS hosted at `trysyncup.org/privacy` and `trysyncup.org/terms`
 
 ## For Full Details
 

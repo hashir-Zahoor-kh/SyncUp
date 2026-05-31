@@ -73,6 +73,7 @@ export default function AppLayout(): React.JSX.Element {
           <Tabs.Screen name="invite" options={{ href: null }} />
           <Tabs.Screen name="accept-invite" options={{ href: null }} />
           <Tabs.Screen name="connected" options={{ href: null }} />
+          <Tabs.Screen name="delete-account" options={{ href: null }} />
         </Tabs>
       </ReactionProvider>
     </GoalProvider>

@@ -156,15 +156,18 @@ export interface Database {
           user_id: string;
           requested_at: string;
           processed_at: string | null;
+          processed_status: 'pending' | 'processing' | 'completed' | 'failed' | null;
         };
         Insert: {
           id?: string | undefined;
           user_id: string;
           requested_at?: string | undefined;
           processed_at?: string | null | undefined;
+          processed_status?: 'pending' | 'processing' | 'completed' | 'failed' | null | undefined;
         };
         Update: {
           processed_at?: string | null | undefined;
+          processed_status?: 'pending' | 'processing' | 'completed' | 'failed' | null | undefined;
         };
         Relationships: [];
       };
@@ -197,6 +200,10 @@ export interface Database {
           partner_name: string | null;
           partner_avatar_color: string | null;
         };
+      };
+      process_account_deletion: {
+        Args: { p_user_id: string };
+        Returns: { success: boolean; partner_id: string | null };
       };
     };
     Enums: Record<string, never>;
